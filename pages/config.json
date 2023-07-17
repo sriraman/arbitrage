@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "scrip1": "IDFCFIRSTB",
+      "scrip2": "IDFC",
+      "ratio1": 155,
+      "ratio2": 100,
+      "source": "https://www.livemint.com/companies/idfc-first-bank-merger-to-complete-this-year-ratio-fixed-at-155-100-check-details-11688397534074.html"
+    },
+    {
+      "scrip1": "TATASTEEL",
+      "scrip2": "TATASTLLP",
+      "ratio1": 67,
+      "ratio2": 10,
+      "source": "https://www.tatasteel.com/media/newsroom/press-releases/india/2022/tata-steel-board-approves-the-amalgamation-of-strategic-businesses-into-the-company/"
+    },
+    {
+      "scrip1": "TATASTEEL",
+      "scrip2": "TATAMETALI",
+      "ratio1": 79,
+      "ratio2": 10,
+      "source": "https://www.tatasteel.com/media/newsroom/press-releases/india/2022/tata-steel-board-approves-the-amalgamation-of-strategic-businesses-into-the-company/"
+    },
+    {
+      "scrip1": "TATASTEEL",
+      "scrip2": "TINPLATE",
+      "ratio1": 33,
+      "ratio2": 10,
+      "source": "https://www.tatasteel.com/media/newsroom/press-releases/india/2022/tata-steel-board-approves-the-amalgamation-of-strategic-businesses-into-the-company/"
+    },
+    {
+      "scrip1": "TATASTEEL",
+      "scrip2": "TRF",
+      "ratio1": 17,
+      "ratio2": 10,
+      "source": "https://www.tatasteel.com/media/newsroom/press-releases/india/2022/tata-steel-board-approves-the-amalgamation-of-strategic-businesses-into-the-company/"
+    }
+  ]
+}
