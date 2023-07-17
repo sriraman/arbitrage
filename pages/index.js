@@ -8,13 +8,13 @@ import { getAnalytics } from "firebase/analytics";
 import config from './config.json';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB-1puLjbQCszlVoaJA8IqPNXjMVNg9y1w",
-  authDomain: "reits-vercel.firebaseapp.com",
-  projectId: "reits-vercel",
-  storageBucket: "reits-vercel.appspot.com",
-  messagingSenderId: "87462480753",
-  appId: "1:87462480753:web:e8aa635c3c8deb14cdc4d0",
-  measurementId: "G-WJFCPL6HT5"
+  apiKey: "AIzaSyBxnplTgab7KNB6XFPrVypDc8fS3Fz8wMU",
+  authDomain: "arbitrage-vercel.firebaseapp.com",
+  projectId: "arbitrage-vercel",
+  storageBucket: "arbitrage-vercel.appspot.com",
+  messagingSenderId: "539721601315",
+  appId: "1:539721601315:web:47ea8688da38f34f94fc96",
+  measurementId: "G-8ZN91TDH17"
 };
 
 
@@ -125,7 +125,7 @@ export default function Home() {
 
         <Container css={{ maxWidth: '1200px', margin: 'auto' }}>
           <Text size="$md" color='#888'>
-            
+            * For simplicity, Getting the Last Traded Price from NSE only
           </Text>
 
 
