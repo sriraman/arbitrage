@@ -1,6 +1,13 @@
 {
   "data": [
     {
+      "scrip1": "TATAMOTORS",
+      "scrip2": "TATAMTRDVR",
+      "ratio1": 7,
+      "ratio2": 10,
+      "source": "https://www.newindianexpress.com/business/2023/jul/26/tata-motors-to-cancel-dvr-shares-posts-rs-3203-crore-pat-2598664.html"
+    },
+    {
       "scrip1": "IDFCFIRSTB",
       "scrip2": "IDFC",
       "ratio1": 155,

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import React, { useState } from 'react';
-import { NextUIProvider, Table, Container, Card, Text, Badge, Link, Image } from '@nextui-org/react';
+import { NextUIProvider, Table, Container, Card, Text, Badge, Link, Image, Loading } from '@nextui-org/react';
 import ReactGA from 'react-ga4';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -20,7 +20,7 @@ const firebaseConfig = {
 
 export default function Home() {
 
-  const [priceData, setPriceData] = useState([]);
+  const [priceData, setPriceData] = useState(null);
   const [width, setWidth] = useState(0);
   let scrips = [];
 
@@ -33,12 +33,15 @@ export default function Home() {
       }
   })
 
-  console.log(scrips);
 
   React.useEffect(() => {
     setWidth(window.innerWidth);
+
+    console.log('use effect')
+
+    console.log('https://nse-api-three.vercel.app/api/getQuote?api_key=CssgK3JQNenGzU6aDTr6w6g5S&symbols='+scrips.join(","));
     
-    fetch('https://api.stockmarketapi.in/api/v1/getprices?token=cb4750604bb2a7697c40d1546ef4b02246ba9f2a6976570b0353203ec4474217&nsecode='+scrips.join(","))
+    fetch('https://nse-api-three.vercel.app/api/getQuote?api_key=CssgK3JQNenGzU6aDTr6w6g5S&symbols='+scrips.join(","))
       .then((response => {
         if (response.ok) {
           return response.json();
@@ -46,8 +49,19 @@ export default function Home() {
         throw response;
       }))
       .then(data => {
-        const priceData = data.data;
-        setPriceData(priceData);
+        console.log(data);
+
+        let price = [];
+
+        data.map((d) => {
+          price[d.scrip] = {
+            scrip: d.scrip,
+            ltp: d.price,
+            name: d.name
+          }
+        });
+
+        setPriceData(price);
       })
 
 
@@ -83,7 +97,7 @@ export default function Home() {
 
         <Card variant="flat" css={{ maxWidth: '1200px', margin: 'auto' }}>
           
-          <Table
+          {priceData && <Table
             aria-label="Example table with static content"
             css={{
               height: "auto",
@@ -106,8 +120,8 @@ export default function Home() {
                   }
                   return (
                     <Table.Row key={id}>
-                      <Table.Cell><Text weight="bold">{merger.scrip1}</Text></Table.Cell>
-                      <Table.Cell><Text weight="bold">{merger.scrip2}</Text></Table.Cell>
+                      <Table.Cell>{merger.scrip1} <span style={{ fontSize: '12px', fontWeight: '400', color: '#aaa' }}>({priceData[merger.scrip1]?.name})</span> <Text weight="bold">{priceData[merger.scrip1]?.ltp}</Text></Table.Cell>
+                      <Table.Cell>{merger.scrip2} <span style={{ fontSize: '12px', fontWeight: '400', color: '#aaa' }}>({priceData[merger.scrip2]?.name})</span> <Text weight="bold">{priceData[merger.scrip2]?.ltp}</Text></Table.Cell>
                       <Table.Cell>{merger.ratio1}:{merger.ratio2}</Table.Cell>
                       <Table.Cell><Badge color={(difference > 0) ? "success" : "error"} variant="bordered">{Math.round(difference*100)/100}%</Badge></Table.Cell>
                       <Table.Cell>
@@ -120,12 +134,14 @@ export default function Home() {
                 })
               }
             </Table.Body>
-          </Table>
+          </Table>}
+
+          {priceData || <Loading css={{ margin: '200px' }} size="xl" />}
         </Card>
 
         <Container css={{ maxWidth: '1200px', margin: 'auto' }}>
           <Text size="$md" color='#888'>
-            * For simplicity, Getting the Last Traded Price from NSE only
+            * Based on Corporate Actions proposed by the company
           </Text>
 
 
