@@ -36,10 +36,6 @@ export default function Home() {
 
   React.useEffect(() => {
     setWidth(window.innerWidth);
-
-    console.log('use effect')
-
-    console.log('https://nse-api-three.vercel.app/api/getQuote?api_key=CssgK3JQNenGzU6aDTr6w6g5S&symbols='+scrips.join(","));
     
     fetch('https://nse-api-three.vercel.app/api/getQuote?api_key=CssgK3JQNenGzU6aDTr6w6g5S&symbols='+scrips.join(","))
       .then((response => {
@@ -49,7 +45,6 @@ export default function Home() {
         throw response;
       }))
       .then(data => {
-        console.log(data);
 
         let price = [];
 
@@ -114,14 +109,14 @@ export default function Home() {
               {config.data.map((merger,id) => {
                   let difference = null;
                   if(priceData[merger.scrip1]) {
-                    const cost1 = priceData[merger.scrip1].ltp * merger.ratio1;
+                    const cost1 = priceData[merger.scrip1].ltp * merger.ratio1; // 
                     const cost2 = priceData[merger.scrip2].ltp * merger.ratio2;
-                    difference = (cost1 - cost2)/((cost1+cost2)/2)*100;
+                    difference = (cost1 - cost2)/cost2*100;
                   }
                   return (
                     <Table.Row key={id}>
-                      <Table.Cell>{merger.scrip1} <span style={{ fontSize: '12px', fontWeight: '400', color: '#aaa' }}>({priceData[merger.scrip1]?.name})</span> <Text weight="bold">{priceData[merger.scrip1]?.ltp}</Text></Table.Cell>
-                      <Table.Cell>{merger.scrip2} <span style={{ fontSize: '12px', fontWeight: '400', color: '#aaa' }}>({priceData[merger.scrip2]?.name})</span> <Text weight="bold">{priceData[merger.scrip2]?.ltp}</Text></Table.Cell>
+                      <Table.Cell>{merger.scrip1} {(width > 500) && <span style={{ fontSize: '12px', fontWeight: '400', color: '#aaa' }}>({priceData[merger.scrip1]?.name})</span>} {(width > 500) && <Text weight="bold">{priceData[merger.scrip1]?.ltp}</Text>}</Table.Cell>
+                      <Table.Cell>{merger.scrip2} {(width > 500) && <span style={{ fontSize: '12px', fontWeight: '400', color: '#aaa' }}>({priceData[merger.scrip2]?.name})</span>} {(width > 500) && <Text weight="bold">{priceData[merger.scrip2]?.ltp}</Text>}</Table.Cell>
                       <Table.Cell>{merger.ratio1}:{merger.ratio2}</Table.Cell>
                       <Table.Cell><Badge color={(difference > 0) ? "success" : "error"} variant="bordered">{Math.round(difference*100)/100}%</Badge></Table.Cell>
                       <Table.Cell>
