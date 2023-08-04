@@ -37,7 +37,7 @@ export default function Home() {
   React.useEffect(() => {
     setWidth(window.innerWidth);
     
-    fetch('https://nse-api-three.vercel.app/api/getQuote?api_key=CssgK3JQNenGzU6aDTr6w6g5S&symbols='+scrips.join(","))
+    fetch('https://api.dalalstreet.pro/getQuote?api_key=CssgK3JQNenGzU6aDTr6w6g5S&symbols='+scrips.join(","))
       .then((response => {
         if (response.ok) {
           return response.json();
