@@ -6,6 +6,7 @@ import ReactGA from 'react-ga4';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import config from './config.json';
+import axios from 'axios';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBxnplTgab7KNB6XFPrVypDc8fS3Fz8wMU",
@@ -37,27 +38,29 @@ export default function Home() {
   React.useEffect(() => {
     setWidth(window.innerWidth);
     
-    fetch('https://api.dalalstreet.pro/getQuote?api_key=CssgK3JQNenGzU6aDTr6w6g5S&symbols='+scrips.join(","))
-      .then((response => {
-        if (response.ok) {
-          return response.json();
+    const requests = scrips.map(async (symbol) => {
+      if (symbol) {
+        const url = "https://api.dalalstreet.pro/getQuote?api_key=CssgK3JQNenGzU6aDTr6w6g5S&symbols=" + symbol;
+        return axios.get(url);
+      }
+    })
+
+    Promise.all(requests).then((resp) => {
+
+      let price = [];
+
+      resp.map((response) => {
+        let data = response.data[0];
+        price[data.scrip] = {
+          scrip: data.scrip,
+          ltp: data.price,
+          name: data.name
         }
-        throw response;
-      }))
-      .then(data => {
+      });
 
-        let price = [];
+      setPriceData(price);
 
-        data.map((d) => {
-          price[d.scrip] = {
-            scrip: d.scrip,
-            ltp: d.price,
-            name: d.name
-          }
-        });
-
-        setPriceData(price);
-      })
+    });
 
 
     ReactGA.initialize('G-Q5V6YP2Y0C');
